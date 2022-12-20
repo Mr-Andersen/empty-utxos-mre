@@ -6,11 +6,12 @@ import Contract.Address (addressToBech32, getWalletAddresses)
 import Contract.Monad (Contract, launchAff_, liftContractM, liftedE)
 import Contract.Log (logInfo')
 import Contract.ScriptLookups (ScriptLookups, mkUnbalancedTx)
+import Contract.ScriptLookups as Lookups
 import Contract.Test.Plutip (runPlutipContract)
 import Contract.Transaction (TransactionInput, awaitTxConfirmed, balanceTx, signTransaction, submit)
 import Contract.TxConstraints (TxConstraints)
 import Contract.TxConstraints as Constraints
-import Contract.Utxos (utxosAt)
+import Contract.Utxos (UtxoMap, utxosAt)
 import Contract.Wallet (withKeyWallet)
 import Data.BigInt (fromInt) as BigInt
 import Data.Array (head) as Array
@@ -18,11 +19,11 @@ import Data.Map (findMin, size) as Map
 import Data.Void (Void)
 import Test.Config (config)
 
-transaction :: TransactionInput -> Contract () Unit
-transaction txIn = do
+transaction :: UtxoMap -> TransactionInput -> Contract () Unit
+transaction utxos txIn = do
   let
     lookups :: ScriptLookups Void
-    lookups = mempty
+    lookups = Lookups.unspentOutputs utxos
 
     constraints :: TxConstraints Void Void
     constraints = Constraints.mustSpendPubKeyOutput txIn
@@ -57,4 +58,4 @@ main = launchAff_ $ runPlutipContract config [ BigInt.fromInt 5_000_000, BigInt.
     logInfo' $ "utxos = " <> show (Map.size utxos)
 
     {key: txIn} <- liftContractM "utxos = []" (Map.findMin utxos)
-    transaction txIn
+    transaction utxos txIn

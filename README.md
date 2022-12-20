@@ -16,26 +16,23 @@ spago run -m Test.Main
 
 ## Result
 
-`mkUnbalancedTx` call fails:
+`awaitTxConfirmed` call fails:
 
 ```
-[INFO] 2022-12-20T11:17:46.118Z ["addr1vyy7064uv5fmqjqsx6y9l28enxppjz8gm6dvmr2zt2c50ggnv8943"]
-[INFO] 2022-12-20T11:17:46.129Z utxos = 2
-[INFO] 2022-12-20T11:17:46.129Z Building Tx
 /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:532
                 throw util.fromLeft(step);
                 ^
 
-Error: (TxOutRefNotFound (TransactionInput { index: 0u, transactionId: (TransactionHash (hexToByteArrayUnsafe "b7961a913db910376fa4e3a586b06d943307d767a2f9e33cd138d5c8b4fa0343")) }))
+Error: (AtKey "result" (TypeMismatch "Record.TxNotFound"))
     at Object.exports.error (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Exception/foreign.js:8:10)
-    at Object.$$throw [as throw] (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Exception/index.js:18:45)
-    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Contract.Monad/index.js:179:45
-    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Data.Either/index.js:203:24
-    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Control.Monad.Reader.Trans/index.js:108:34
-    at run (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:278:22)
-    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:348:19
-    at drain (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:120:9)
-    at Object.enqueue (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:141:11)
-    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Effect.Aff/foreign.js:339:27
-[error] Running failed; exit code: 1
+    at dispatchErrorToError (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Ctl.Internal.QueryM.Dispatcher/index.js:97:33)
+    at /home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Data.Bifunctor/index.js:31:49
+    at __do (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Ctl.Internal.QueryM/index.js:371:161)
+    at __do (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Ctl.Internal.QueryM/index.js:769:78)
+    at func (/home/aka_dude/Work/mlabs/empty-utxos-mre/offchain/output/Ctl.Internal.JsWebSocket/foreign.js:64:12)
+    at ReconnectingWebSocket._callEventListener (/nix/store/nafi453gpd4jzc8n4fzz10gfm03vc04m-node-dependencies-empty-utxos-mre-pab-0.1.0/lib/node_modules/reconnecting-websocket/dist/reconnecting-websocket-cjs.js:557:13)
+    at /nix/store/nafi453gpd4jzc8n4fzz10gfm03vc04m-node-dependencies-empty-utxos-mre-pab-0.1.0/lib/node_modules/reconnecting-websocket/dist/reconnecting-websocket-cjs.js:176:81
+    at Array.forEach (<anonymous>)
+    at NoPerMessageDeflateWebSocket.ReconnectingWebSocket._handleMessage (/nix/store/nafi453gpd4jzc8n4fzz10gfm03vc04m-node-dependencies-empty-utxos-mre-pab-0.1.0/lib/node_modules/reconnecting-websocket/dist/reconnecting-websocket-cjs.js:176:38)
+[error] Tests failed: exit code: 1
 ```
