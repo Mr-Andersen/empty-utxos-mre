@@ -14,7 +14,7 @@ config =
   , logLevel: Info
   , customLogger: Nothing
   , suppressLogs: false
-  , clusterConfig: { slotLength: Seconds 5.0 }
+  , clusterConfig: { slotLength: Seconds 0.2 }
   , ogmiosConfig:
       { port: UInt.fromInt 1338
       , host: "127.0.0.1"
